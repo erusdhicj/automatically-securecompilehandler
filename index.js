@@ -1,12 +1,19 @@
-function bubbleSort(arr) {
-  for (let i = 0; i < arr.length - 1; i++) {
-    for (let j = 0; j < arr.length - i - 1; j++) {
-      if (arr[j] > arr[j + 1]) {
-        let temp = arr[j];
-        arr[j] = arr[j + 1];
-        arr[j + 1] = temp;
-      }
+function deserialize(data) {
+  if (!data.length) return null;
+  const root = new TreeNode(data.shift());
+  const queue = [root];
+  while (queue.length) {
+    const node = queue.shift();
+    const leftVal = data.shift();
+    if (leftVal !== undefined) {
+      node.left = new TreeNode(leftVal);
+      queue.push(node.left);
+    }
+    const rightVal = data.shift();
+    if (rightVal !== undefined) {
+      node.right = new TreeNode(rightVal);
+      queue.push(node.right);
     }
   }
-  return arr;
+  return root;
 }

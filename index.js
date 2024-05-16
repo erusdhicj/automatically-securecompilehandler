@@ -1,19 +1,11 @@
-function deserialize(data) {
-  if (!data.length) return null;
-  const root = new TreeNode(data.shift());
-  const queue = [root];
-  while (queue.length) {
-    const node = queue.shift();
-    const leftVal = data.shift();
-    if (leftVal !== undefined) {
-      node.left = new TreeNode(leftVal);
-      queue.push(node.left);
-    }
-    const rightVal = data.shift();
-    if (rightVal !== undefined) {
-      node.right = new TreeNode(rightVal);
-      queue.push(node.right);
-    }
-  }
-  return root;
+function isValidBST(root) {
+  return isValid(root, null, null);
+}
+function isValid(node, min, max) {
+  if (!node) return true;
+  if ((min !== null && node.val <= min) || (max !== null && node.val >= max))
+    return false;
+  return (
+    isValid(node.left, min, node.val) && isValid(node.right, node.val, max)
+  );
 }
